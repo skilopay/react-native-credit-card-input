@@ -17,5 +17,5 @@ export interface CreditCardInputProps {
 }
 
 export class CreditCardInput extends React.Component<CreditCardInputProps> {
-  focus(string): void;
+  focus(field: string): void;
 }
