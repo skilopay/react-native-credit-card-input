@@ -102,7 +102,7 @@ export default class CardView extends Component {
       expiry: "••/••",
       cvc: "•••",
     },
-
+    expiryLabel: 'MONTH/YEAR',
     scale: 1,
     fontFamily: Platform.select({ ios: "Courier", android: "monospace" }),
     imageFront: require("../images/card-front.png"),
@@ -112,17 +112,19 @@ export default class CardView extends Component {
   render() {
     const { focused,
       brand, name, number, expiry, cvc, customIcons,
-      placeholder, imageFront, imageBack, scale, fontFamily } = this.props;
+      placeholder, imageFront, imageBack, scale, fontFamily, expiryLabel } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
     const isAmex = brand === "american-express";
     const shouldFlip = !isAmex && focused === "cvc";
 
     const containerSize = { ...BASE_SIZE, height: BASE_SIZE.height * scale };
-    const transform = { transform: [
-      { scale },
-      { translateY: ((BASE_SIZE.height * (scale - 1) / 2)) },
-    ] };
+    const transform = {
+      transform: [
+        { scale },
+        { translateY: ((BASE_SIZE.height * (scale - 1) / 2)) },
+      ]
+    };
 
     return (
       <View style={[s.cardContainer, containerSize]}>
@@ -135,31 +137,31 @@ export default class CardView extends Component {
           flip={shouldFlip}>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageFront}>
-              <Image style={[s.icon]}
-                source={Icons[brand]} />
-              <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
-                { !number ? placeholder.number : number }
-              </Text>
-              <Text style={[s.baseText, { fontFamily }, s.name, !name && s.placeholder, focused === "name" && s.focused]}
-                numberOfLines={1}>
-                { !name ? placeholder.name : name.toUpperCase() }
-              </Text>
-              <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
-                MONTH/YEAR
-              </Text>
-              <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
-                { !expiry ? placeholder.expiry : expiry }
-              </Text>
-              { isAmex &&
-                  <Text style={[s.baseText, { fontFamily }, s.amexCVC, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                    { !cvc ? placeholder.cvc : cvc }
-                  </Text> }
+            <Image style={[s.icon]}
+              source={Icons[brand]} />
+            <Text style={[s.baseText, { fontFamily }, s.number, !number && s.placeholder, focused === "number" && s.focused]}>
+              {!number ? placeholder.number : number}
+            </Text>
+            <Text style={[s.baseText, { fontFamily }, s.name, !name && s.placeholder, focused === "name" && s.focused]}
+              numberOfLines={1}>
+              {!name ? placeholder.name : name.toUpperCase()}
+            </Text>
+            <Text style={[s.baseText, { fontFamily }, s.expiryLabel, s.placeholder, focused === "expiry" && s.focused]}>
+              {expiryLabel}
+            </Text>
+            <Text style={[s.baseText, { fontFamily }, s.expiry, !expiry && s.placeholder, focused === "expiry" && s.focused]}>
+              {!expiry ? placeholder.expiry : expiry}
+            </Text>
+            {isAmex &&
+              <Text style={[s.baseText, { fontFamily }, s.amexCVC, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
+                {!cvc ? placeholder.cvc : cvc}
+              </Text>}
           </ImageBackground>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageBack}>
-              <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
-                { !cvc ? placeholder.cvc : cvc }
-              </Text>
+            <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
+              {!cvc ? placeholder.cvc : cvc}
+            </Text>
           </ImageBackground>
         </FlipCard>
       </View>

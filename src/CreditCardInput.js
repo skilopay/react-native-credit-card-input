@@ -35,10 +35,10 @@ const s = StyleSheet.create({
 
 const CVC_INPUT_WIDTH = 70;
 const EXPIRY_INPUT_WIDTH = CVC_INPUT_WIDTH;
-const CARD_NUMBER_INPUT_WIDTH_OFFSET = 40;
+const CARD_NUMBER_INPUT_WIDTH_OFFSET = 0;
 const CARD_NUMBER_INPUT_WIDTH = Dimensions.get("window").width - EXPIRY_INPUT_WIDTH - CARD_NUMBER_INPUT_WIDTH_OFFSET;
 const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
-const PREVIOUS_FIELD_OFFSET = 40;
+const PREVIOUS_FIELD_OFFSET = 0;
 const POSTAL_CODE_INPUT_WIDTH = 120;
 
 /* eslint react/prop-types: 0 */ // https://github.com/yannickcr/eslint-plugin-react/issues/106
@@ -76,6 +76,13 @@ export default class CreditCardInput extends Component {
       cvc: "CVC/CCV",
       postalCode: "POSTAL CODE",
     },
+    viewPlaceholder: {
+      number: "•••• •••• •••• ••••",
+      name: "FULL NAME",
+      expiry: "••/••",
+      cvc: "•••",
+    },
+    expiryLabel: 'MONTH/YEAR',
     placeholders: {
       name: "Full Name",
       number: "1234 5678 1234 5678",
@@ -144,13 +151,15 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons,
+      cardScale, cardFontFamily, cardBrandIcons, viewPlaceholder, expiryLabel
     } = this.props;
 
     return (
       <View style={s.container}>
         <CreditCard focused={focused}
           brand={type}
+          expiryLabel={expiryLabel}
+          placeholder={viewPlaceholder}
           scale={cardScale}
           fontFamily={cardFontFamily}
           imageFront={cardImageFront}
@@ -168,21 +177,21 @@ export default class CreditCardInput extends Component {
           style={s.form}>
           <CCInput {...this._inputProps("number")}
             keyboardType="numeric"
-            containerStyle={[s.inputContainer, inputContainerStyle, { width: CARD_NUMBER_INPUT_WIDTH }]} />
+            containerStyle={[{ width: CARD_NUMBER_INPUT_WIDTH }, s.inputContainer, inputContainerStyle]} />
+          {requiresName &&
+            <CCInput {...this._inputProps("name")}
+              containerStyle={[{ width: NAME_INPUT_WIDTH }, s.inputContainer, inputContainerStyle]} />}
           <CCInput {...this._inputProps("expiry")}
             keyboardType="numeric"
-            containerStyle={[s.inputContainer, inputContainerStyle, { width: EXPIRY_INPUT_WIDTH }]} />
-          { requiresCVC &&
+            containerStyle={[{ width: EXPIRY_INPUT_WIDTH }, s.inputContainer, inputContainerStyle]} />
+          {requiresCVC &&
             <CCInput {...this._inputProps("cvc")}
               keyboardType="numeric"
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: CVC_INPUT_WIDTH }]} /> }
-          { requiresName &&
-            <CCInput {...this._inputProps("name")}
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: NAME_INPUT_WIDTH }]} /> }
-          { requiresPostalCode &&
+              containerStyle={[{ width: CVC_INPUT_WIDTH }, s.inputContainer, inputContainerStyle]} />}
+          {requiresPostalCode &&
             <CCInput {...this._inputProps("postalCode")}
               keyboardType="numeric"
-              containerStyle={[s.inputContainer, inputContainerStyle, { width: POSTAL_CODE_INPUT_WIDTH }]} /> }
+              containerStyle={[{ width: POSTAL_CODE_INPUT_WIDTH }, s.inputContainer, inputContainerStyle]} />}
         </ScrollView>
       </View>
     );
