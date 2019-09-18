@@ -22,6 +22,7 @@ export default function connectToState(CreditCardInput) {
     static propTypes = {
       autoFocus: PropTypes.bool,
       onChange: PropTypes.func.isRequired,
+      fieldsOrder: PropTypes.array,
       onFocus: PropTypes.func,
       requiresName: PropTypes.bool,
       requiresCVC: PropTypes.bool,
@@ -31,15 +32,15 @@ export default function connectToState(CreditCardInput) {
 
     static defaultProps = {
       autoFocus: false,
-      onChange: () => {},
-      onFocus: () => {},
+      onChange: () => { },
+      onFocus: () => { },
       requiresName: false,
       requiresCVC: true,
       requiresPostalCode: false,
       validatePostalCode: (postalCode = "") => {
         return postalCode.match(/^\d{6}$/) ? "valid" :
-               postalCode.length > 6 ? "invalid" :
-               "incomplete";
+          postalCode.length > 6 ? "invalid" :
+            "incomplete";
       },
     };
 
@@ -72,14 +73,15 @@ export default function connectToState(CreditCardInput) {
     };
 
     _displayedFields = () => {
-      const { requiresName, requiresCVC, requiresPostalCode } = this.props;
-      return compact([
+      const { fieldsOrder, requiresName, requiresCVC, requiresPostalCode } = this.props;
+      const fields = fieldsOrder ? fieldsOrder : [
         "number",
         "expiry",
         requiresCVC ? "cvc" : null,
         requiresName ? "name" : null,
         requiresPostalCode ? "postalCode" : null,
-      ]);
+      ]
+      return compact(fields);
     };
 
     _focusPreviousField = field => {
