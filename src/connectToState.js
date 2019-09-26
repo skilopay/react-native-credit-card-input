@@ -28,10 +28,14 @@ export default function connectToState(CreditCardInput) {
       requiresCVC: PropTypes.bool,
       requiresPostalCode: PropTypes.bool,
       validatePostalCode: PropTypes.func,
+      autoFocusPrevious: PropTypes.bool,
+      autoFocusNext: PropTypes.bool,
     };
 
     static defaultProps = {
       autoFocus: false,
+      autoFocusPrevious: true,
+      autoFocusNext: true,
       onChange: () => { },
       onFocus: () => { },
       requiresName: false,
@@ -78,13 +82,16 @@ export default function connectToState(CreditCardInput) {
         "number",
         "expiry",
         requiresCVC ? "cvc" : null,
-        requiresName ? "name" : null,
+        requiresName ? "n`ame" : null,
         requiresPostalCode ? "postalCode" : null,
       ]
       return compact(fields);
     };
 
     _focusPreviousField = field => {
+      const { autoFocusPrevious } = this.props;
+      if (!autoFocusPrevious) return;
+
       const displayedFields = this._displayedFields();
       const fieldIndex = displayedFields.indexOf(field);
       const previousField = displayedFields[fieldIndex - 1];
@@ -92,6 +99,9 @@ export default function connectToState(CreditCardInput) {
     };
 
     _focusNextField = field => {
+      const { autoFocusNext } = this.props;
+      if (!autoFocusNext) return;
+
       if (field === "name") return;
       // Should not focus to the next field after name (e.g. when requiresName & requiresPostalCode are true
       // because we can't determine if the user has completed their name or not)

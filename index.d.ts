@@ -14,6 +14,8 @@ export interface CreditCardInputProps {
   onFocus: any;
   viewPlaceholder: any;
   placeholders: any;
+  autoFocusPrevious: boolean;
+  autoFocusNext: boolean;
 }
 
 export class CreditCardInput extends React.Component<CreditCardInputProps> {
