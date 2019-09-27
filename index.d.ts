@@ -11,7 +11,8 @@ export interface CreditCardInputProps {
   expiryLabel?: any;
   inputContainerStyle?: any;
   labels?: any;
-  onFocus?: any;
+  onFocus?: Function;
+  onChange?: Function;
   viewPlaceholder?: any;
   placeholders?: any;
   autoFocusPrevious?: boolean;
