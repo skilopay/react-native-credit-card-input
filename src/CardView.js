@@ -32,9 +32,16 @@ const s = StyleSheet.create({
   placeholder: {
     color: "rgba(255, 255, 255, 0.5)",
   },
+  cvcPlaceholder: {
+    color: "rgba(0, 0, 0, 0.5)",
+  },
   focused: {
     fontWeight: "bold",
     color: "rgba(255, 255, 255, 1)",
+  },
+  cvcFocused: {
+    fontWeight: "bold",
+    color: "rgba(0, 0, 0, 1)",
   },
   number: {
     fontSize: 21,
@@ -159,7 +166,7 @@ export default class CardView extends Component {
           </ImageBackground>
           <ImageBackground style={[BASE_SIZE, s.cardFace, transform]}
             source={imageBack}>
-            <Text style={[s.baseText, s.cvc, !cvc && s.placeholder, focused === "cvc" && s.focused]}>
+            <Text style={[s.baseText, s.cvc, !cvc && s.cvcPlaceholder, focused === "cvc" && s.cvcFocused]}>
               {!cvc ? placeholder.cvc : cvc}
             </Text>
           </ImageBackground>
