@@ -22,7 +22,7 @@ export interface CreditCardInputProps {
   placeholders?: any;
   autoFocusPrevious?: boolean;
   autoFocusNext?: boolean;
-  values: ValuesObject
+  values?: ValuesObject
 }
 
 export class CreditCardInput extends React.Component<CreditCardInputProps> {
