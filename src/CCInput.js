@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import defaultIcons from "./Icons";
 import {
   View,
   Text,
@@ -7,12 +8,22 @@ import {
   TouchableOpacity,
   StyleSheet,
   ViewPropTypes,
+  Image
 } from "react-native";
 
 const s = StyleSheet.create({
   baseInputStyle: {
     color: "black",
   },
+  icon: {
+    height: 24,
+    width: 24,
+  },
+  brand: {
+    width: 36,
+    height: 24,
+    tintColor: '#828282'
+  }
 });
 
 export default class CCInput extends Component {
@@ -46,10 +57,10 @@ export default class CCInput extends Component {
     containerStyle: {},
     inputStyle: {},
     labelStyle: {},
-    onFocus: () => {},
-    onChange: () => {},
-    onBecomeEmpty: () => {},
-    onBecomeValid: () => {},
+    onFocus: () => { },
+    onChange: () => { },
+    onBecomeEmpty: () => { },
+    onBecomeValid: () => { },
     additionalInputProps: {},
   };
 
@@ -68,14 +79,23 @@ export default class CCInput extends Component {
 
   render() {
     const { label, value, placeholder, status, keyboardType,
-            containerStyle, inputStyle, labelStyle,
-            validColor, invalidColor, placeholderColor,
-            additionalInputProps } = this.props;
+      containerStyle, inputStyle, labelStyle,
+      validColor, invalidColor, placeholderColor,
+      customIcons, brand, field,
+      additionalInputProps } = this.props;
+
+    const Icons = { ...defaultIcons, ...customIcons };
+
     return (
       <TouchableOpacity onPress={this.focus}
         activeOpacity={0.99}>
-        <View style={[containerStyle]}>
-          { !!label && <Text style={[labelStyle]}>{label}</Text>}
+        {!!label && <Text
+          style={[labelStyle,
+            (invalidColor && status === "invalid") ? { color: invalidColor } : {}]}
+        >{label}</Text>}
+        <View style={[containerStyle,
+          (invalidColor && status === "invalid") ? { borderColor: invalidColor } :
+            {}]}>
           <TextInput ref="input"
             {...additionalInputProps}
             keyboardType={keyboardType}
@@ -85,8 +105,8 @@ export default class CCInput extends Component {
               s.baseInputStyle,
               inputStyle,
               ((validColor && status === "valid") ? { color: validColor } :
-              (invalidColor && status === "invalid") ? { color: invalidColor } :
-              {}),
+                (invalidColor && status === "invalid") ? { color: invalidColor } :
+                  {}),
             ]}
             underlineColorAndroid={"transparent"}
             placeholderTextColor={placeholderColor}
@@ -94,6 +114,12 @@ export default class CCInput extends Component {
             value={value}
             onFocus={this._onFocus}
             onChangeText={this._onChange} />
+          {
+            status === "invalid" ? <Image style={[s.icon, { tintColor: invalidColor }]}
+              source={Icons['warning']} /> :
+              brand && field === 'number' && status !== 'invalid' && <Image style={[s.brand]}
+                source={Icons[brand]} />
+          }
         </View>
       </TouchableOpacity>
     );

@@ -24,12 +24,12 @@ const s = StyleSheet.create({
   },
   inputContainer: {
     marginLeft: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   inputLabel: {
     fontWeight: "bold",
-  },
-  input: {
-    height: 40,
   },
 });
 
@@ -125,14 +125,16 @@ export default class CreditCardInput extends Component {
     const {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
-      onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps,
+      onFocus, onChange, onBecomeEmpty, onBecomeValid, cardBrandIcons,
+      additionalInputsProps
     } = this.props;
 
     return {
       inputStyle: [s.input, inputStyle],
       labelStyle: [s.inputLabel, labelStyle],
       validColor, invalidColor, placeholderColor,
+      customIcons: cardBrandIcons,
+      brand: field === 'number' ? values.type : null,
       ref: field, field,
 
       label: labels[field],

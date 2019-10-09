@@ -12,28 +12,29 @@ import {
 import defaultIcons from "./Icons";
 import FlipCard from "react-native-flip-card";
 
-const BASE_SIZE = { width: 300, height: 190 };
+const BASE_SIZE = { width: 231, height: 126 };
 
 const s = StyleSheet.create({
   cardContainer: {},
   cardFace: {},
   icon: {
     position: "absolute",
-    top: 15,
-    right: 15,
+    top: 10,
+    right: 10,
     width: 60,
     height: 40,
     resizeMode: "contain",
   },
   baseText: {
     color: "rgba(255, 255, 255, 0.8)",
+    fontWeight: '600',
     backgroundColor: "transparent",
   },
   placeholder: {
     color: "rgba(255, 255, 255, 0.5)",
   },
   cvcPlaceholder: {
-    color: "rgba(0, 0, 0, 0.5)",
+    color: "rgba(130, 130, 130, 0.5)",
   },
   focused: {
     fontWeight: "bold",
@@ -41,44 +42,48 @@ const s = StyleSheet.create({
   },
   cvcFocused: {
     fontWeight: "bold",
-    color: "rgba(0, 0, 0, 1)",
+    color: "rgba(130, 130, 130, 1)",
   },
   number: {
-    fontSize: 21,
+    fontSize: 14,
     position: "absolute",
-    top: 95,
-    left: 28,
+    top: 71,
+    left: 13,
   },
   name: {
-    fontSize: 16,
+    fontSize: 12,
     position: "absolute",
     bottom: 20,
-    left: 25,
-    right: 100,
+    left: 13,
+    right: 55,
   },
   expiryLabel: {
-    fontSize: 9,
+    fontSize: 8,
     position: "absolute",
-    bottom: 40,
-    left: 218,
+    bottom: 33,
+    left: 183,
+    right: 12,
+
   },
   expiry: {
-    fontSize: 16,
+    fontSize: 14,
     position: "absolute",
     bottom: 20,
-    left: 220,
+    right: 12,
   },
   amexCVC: {
-    fontSize: 16,
+    fontSize: 14,
     position: "absolute",
-    top: 73,
-    right: 30,
+    top: 55,
+    fontStyle: 'italic',
+    right: 11,
   },
   cvc: {
-    fontSize: 16,
+    fontSize: 14,
     position: "absolute",
-    top: 80,
-    right: 30,
+    top: 55,
+    fontStyle: 'italic',
+    right: 11,
   },
 });
 

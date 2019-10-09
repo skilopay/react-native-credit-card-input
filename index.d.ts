@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { TextStyle, StyleProp } from 'react-native';
 export type FormKeys = 'number' | 'expiry' | 'cvc' | 'name' | 'postalCode';
 
 export type ValuesObject = {
@@ -22,7 +23,12 @@ export interface CreditCardInputProps {
   placeholders?: any;
   autoFocusPrevious?: boolean;
   autoFocusNext?: boolean;
-  values?: ValuesObject
+  values?: ValuesObject;
+  cardFontFamily?: string;
+  labelStyle?: StyleProp<TextStyle>;
+  inputStyle?: StyleProp<TextStyle>;
+  validColor?: string;
+  invalidColor?: string;
 }
 
 export class CreditCardInput extends React.Component<CreditCardInputProps> {
