@@ -99,6 +99,7 @@ export default class CreditCardInput extends Component {
     placeholderColor: "gray",
     allowScroll: false,
     additionalInputsProps: {},
+    disablePreview: false
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -154,24 +155,26 @@ export default class CreditCardInput extends Component {
       cardImageFront, cardImageBack, inputContainerStyle,
       values: { number, expiry, cvc, name, type }, focused,
       allowScroll, requiresName, requiresCVC, requiresPostalCode,
-      cardScale, cardFontFamily, cardBrandIcons, viewPlaceholder, expiryLabel
+      cardScale, cardFontFamily, cardBrandIcons, viewPlaceholder, expiryLabel,
+      disablePreview
     } = this.props;
 
     return (
       <View style={s.container}>
-        <CreditCard focused={focused}
-          brand={type}
-          expiryLabel={expiryLabel}
-          placeholder={viewPlaceholder}
-          scale={cardScale}
-          fontFamily={cardFontFamily}
-          imageFront={cardImageFront}
-          imageBack={cardImageBack}
-          customIcons={cardBrandIcons}
-          name={requiresName ? name : " "}
-          number={number}
-          expiry={expiry}
-          cvc={cvc} />
+        {!disablePreview ?
+          <CreditCard focused={focused}
+            brand={type}
+            expiryLabel={expiryLabel}
+            placeholder={viewPlaceholder}
+            scale={cardScale}
+            fontFamily={cardFontFamily}
+            imageFront={cardImageFront}
+            imageBack={cardImageBack}
+            customIcons={cardBrandIcons}
+            name={requiresName ? name : " "}
+            number={number}
+            expiry={expiry}
+            cvc={cvc} /> : null}
         <ScrollView ref="Form"
           horizontal
           keyboardShouldPersistTaps="always"
