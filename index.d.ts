@@ -30,6 +30,7 @@ export interface CreditCardInputProps {
   validColor?: string;
   invalidColor?: string;
   disablePreview?: boolean;
+  placeholderColor?: string;
 }
 
 export class CreditCardInput extends React.Component<CreditCardInputProps> {
