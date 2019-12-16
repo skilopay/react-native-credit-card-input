@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import defaultIcons from "./Icons";
+import iconsColored from './IconsColored';
+
 import {
   View,
   Text,
@@ -22,7 +24,6 @@ const s = StyleSheet.create({
   brand: {
     width: 36,
     height: 24,
-    tintColor: '#828282'
   }
 });
 
@@ -85,6 +86,7 @@ export default class CCInput extends Component {
       additionalInputProps } = this.props;
 
     const Icons = { ...defaultIcons, ...customIcons };
+    const IconsColored = { ...defaultIcons, ...customIcons, ...iconsColored };
 
     return (
       <TouchableOpacity onPress={this.focus}
@@ -118,7 +120,7 @@ export default class CCInput extends Component {
             status === "invalid" ? <Image style={[s.icon, { tintColor: invalidColor }]}
               source={Icons['warning']} /> :
               brand && field === 'number' && status !== 'invalid' && <Image style={[s.brand]}
-                source={Icons[brand]} />
+                source={IconsColored[brand || '']} />
           }
         </View>
       </TouchableOpacity>
