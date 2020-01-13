@@ -24,9 +24,9 @@ const s = StyleSheet.create({
   },
   inputContainer: {
     marginLeft: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   inputLabel: {
     fontWeight: "bold",
@@ -82,7 +82,7 @@ export default class CreditCardInput extends Component {
       expiry: "••/••",
       cvc: "•••",
     },
-    expiryLabel: 'MONTH/YEAR',
+    expiryLabel: "MONTH/YEAR",
     placeholders: {
       name: "Full Name",
       number: "1234 5678 1234 5678",
@@ -99,7 +99,7 @@ export default class CreditCardInput extends Component {
     placeholderColor: "gray",
     allowScroll: false,
     additionalInputsProps: {},
-    disablePreview: false
+    disablePreview: false,
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -116,9 +116,11 @@ export default class CreditCardInput extends Component {
     NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
       e => { throw e; },
       x => {
-        this.refs.Form.scrollTo({ x: x, y: 0, animated: true })
+        this.refs.Form.scrollTo({ x: x, y: 0, animated: true });
         setTimeout(() => {
-          this.refs[field].focus();
+          if (this.refs[field] && this.refs[field].value === "") {
+            this.refs[field].focus();
+          }
         }, 300);
       });
   }
@@ -128,7 +130,7 @@ export default class CreditCardInput extends Component {
       inputStyle, labelStyle, validColor, invalidColor, placeholderColor,
       placeholders, labels, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid, cardBrandIcons,
-      additionalInputsProps
+      additionalInputsProps,
     } = this.props;
 
     return {
@@ -136,7 +138,7 @@ export default class CreditCardInput extends Component {
       labelStyle: [s.inputLabel, labelStyle],
       validColor, invalidColor, placeholderColor,
       customIcons: cardBrandIcons,
-      brand: field === 'number' ? values.type : null,
+      brand: field === "number" ? values.type : null,
       ref: field, field,
 
       label: labels[field],
