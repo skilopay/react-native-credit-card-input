@@ -13,6 +13,7 @@ export const InjectedProps = {
   onBecomeEmpty: PropTypes.func.isRequired,
   onBecomeValid: PropTypes.func.isRequired,
   requiresName: PropTypes.bool,
+  cardInfo: PropTypes.array.isRequired,
   requiresCVC: PropTypes.bool,
   requiresPostalCode: PropTypes.bool,
 };
@@ -26,7 +27,7 @@ export default function connectToState(CreditCardInput) {
       onFocus: PropTypes.func,
       requiresName: PropTypes.bool,
       requiresCVC: PropTypes.bool,
-      cardInfo: PropTypes.array,
+      cardInfo: PropTypes.array.isRequired,
       requiresPostalCode: PropTypes.bool,
       validatePostalCode: PropTypes.func,
       autoFocusPrevious: PropTypes.bool,
