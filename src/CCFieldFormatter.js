@@ -1,6 +1,7 @@
 import valid from "card-validator";
 import { removeNonNumber, removeLeadingSpaces } from "./Utilities";
 import pick from "lodash.pick";
+import { validate } from "./utils/card-validator/validator";
 
 const limitLength = (string = "", maxLength) => string.substr(0, maxLength);
 const addGaps = (string = "", gaps) => {
@@ -19,8 +20,13 @@ export default class CCFieldFormatter {
     this._displayedFields = [...displayedFields, "type"];
   }
 
-  formatValues = (values) => {
-    const card = valid.number(values.number).card || FALLBACK_CARD;
+  formatValues = (values, cardInfo) => {
+    let card;
+    if (cardInfo === []) {
+      card = valid.number(values.number).card || FALLBACK_CARD;
+    } else {
+      card = validate(cardInfo, values.number).card || FALLBACK_CARD;
+    }
 
     return pick({
       type: card.type,

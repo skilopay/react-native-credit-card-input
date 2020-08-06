@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import defaultIcons from "./Icons";
-import iconsColored from './IconsColored';
+import iconsColored from "./IconsColored";
 
 import {
   View,
@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ViewPropTypes,
-  Image
+  Image,
 } from "react-native";
 
 const s = StyleSheet.create({
@@ -24,7 +24,7 @@ const s = StyleSheet.create({
   brand: {
     width: 36,
     height: 24,
-  }
+  },
 });
 
 export default class CCInput extends Component {
@@ -93,8 +93,7 @@ export default class CCInput extends Component {
         activeOpacity={0.99}>
         {!!label && <Text
           style={[labelStyle,
-            (invalidColor && status === "invalid") ? { color: invalidColor } : {}]}
-        >{label}</Text>}
+            (invalidColor && status === "invalid") ? { color: invalidColor } : {}]}>{label}</Text>}
         <View style={[containerStyle,
           (invalidColor && status === "invalid") ? { borderColor: invalidColor } :
             {}]}>
@@ -118,9 +117,9 @@ export default class CCInput extends Component {
             onChangeText={this._onChange} />
           {
             status === "invalid" ? <Image style={[s.icon, { tintColor: invalidColor }]}
-              source={Icons['warning']} /> :
-              brand && field === 'number' && status !== 'invalid' && <Image style={[s.brand]}
-                source={IconsColored[brand || '']} />
+              source={Icons["warning"]} /> :
+              brand && field === "number" && status !== "invalid" && <Image style={[s.brand]}
+                source={IconsColored[brand || ""]} />
           }
         </View>
       </TouchableOpacity>

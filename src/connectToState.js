@@ -26,6 +26,7 @@ export default function connectToState(CreditCardInput) {
       onFocus: PropTypes.func,
       requiresName: PropTypes.bool,
       requiresCVC: PropTypes.bool,
+      cardInfo: PropTypes.array,
       requiresPostalCode: PropTypes.bool,
       validatePostalCode: PropTypes.func,
       autoFocusPrevious: PropTypes.bool,
@@ -38,6 +39,7 @@ export default function connectToState(CreditCardInput) {
       autoFocusNext: true,
       onChange: () => { },
       onFocus: () => { },
+      cardInfo: [],
       requiresName: false,
       requiresCVC: true,
       requiresPostalCode: false,
@@ -64,7 +66,7 @@ export default function connectToState(CreditCardInput) {
     setValues = values => {
       const newValues = { ...this.state.values, ...values };
       const displayedFields = this._displayedFields();
-      const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues);
+      const formattedValues = (new CCFieldFormatter(displayedFields)).formatValues(newValues, this.props.cardInfo);
       const validation = (new CCFieldValidator(displayedFields, this.props.validatePostalCode)).validateValues(formattedValues);
       const newState = { values: formattedValues, ...validation };
 
@@ -84,7 +86,7 @@ export default function connectToState(CreditCardInput) {
         requiresCVC ? "cvc" : null,
         requiresName ? "name" : null,
         requiresPostalCode ? "postalCode" : null,
-      ]
+      ];
       return compact(fields);
     };
 
