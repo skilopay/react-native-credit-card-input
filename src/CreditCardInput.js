@@ -118,9 +118,7 @@ export default class CreditCardInput extends Component {
       x => {
         this.refs.Form.scrollTo({ x: x, y: 0, animated: true });
         setTimeout(() => {
-          if (this.refs[field] && this.refs[field].value === "") {
-            this.refs[field].focus();
-          }
+          this.refs[field].focus();
         }, 300);
       });
   }

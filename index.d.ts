@@ -11,6 +11,7 @@ export interface CreditCardInputProps {
   cardImageBack?: any;
   fontFamily?: any;
   cardScale?: any;
+  cardInfo: Array<any>;
   autoFocus?: any;
   fieldsOrder?: any;
   requiresName?: any;

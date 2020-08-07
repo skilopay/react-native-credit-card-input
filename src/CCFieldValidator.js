@@ -2,6 +2,7 @@ import valid from "card-validator";
 import pick from "lodash.pick";
 import values from "lodash.values";
 import every from "lodash.every";
+import { validate } from "./utils/card-validator/validator";
 
 const toStatus = validation => {
   return validation.isValid ? "valid" :
@@ -16,14 +17,19 @@ export default class CCFieldValidator {
     this._validatePostalCode = validatePostalCode;
   }
 
-  validateValues = (formValues) => {
-    const numberValidation = valid.number(formValues.number);
+  validateValues = (formValues, cardInfo) => {
+    let numberValidation;
+    if (cardInfo === []) {
+      numberValidation = valid.number(formValues.number);
+    } else {
+      numberValidation = validate(cardInfo, formValues.number);
+    }
     const expiryValidation = valid.expirationDate(formValues.expiry);
     const maxCVCLength = (numberValidation.card || FALLBACK_CARD).code.size;
     const cvcValidation = valid.cvv(formValues.cvc, maxCVCLength);
 
     const validationStatuses = pick({
-      number: toStatus(numberValidation),
+      number: formValues.number.length <= 7 ? "incomplete" : toStatus(numberValidation),
       expiry: toStatus(expiryValidation),
       cvc: toStatus(cvcValidation),
       name: !!formValues.name ? "valid" : "incomplete",
