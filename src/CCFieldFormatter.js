@@ -22,7 +22,7 @@ export default class CCFieldFormatter {
 
   formatValues = (values, cardInfo) => {
     let card;
-    if (cardInfo === []) {
+    if (cardInfo.length === 0) {
       card = valid.number(values.number).card || FALLBACK_CARD;
     } else {
       card = validate(cardInfo, values.number).card || FALLBACK_CARD;

@@ -19,7 +19,7 @@ export default class CCFieldValidator {
 
   validateValues = (formValues, cardInfo) => {
     let numberValidation;
-    if (cardInfo === []) {
+    if (cardInfo.length === 0) {
       numberValidation = valid.number(formValues.number);
     } else {
       numberValidation = validate(cardInfo, formValues.number);
