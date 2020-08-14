@@ -76,7 +76,9 @@ export default function connectToState(CreditCardInput) {
     };
 
     focus = (field = "number") => {
-      this.setState({ focused: field });
+      if (this.state.focused !== field) {
+        this.setState({ focused: field });
+      }
     };
 
     _displayedFields = () => {
@@ -120,7 +122,6 @@ export default function connectToState(CreditCardInput) {
     };
 
     _onFocus = (field) => {
-      this.focus(field);
       this.props.onFocus(field);
     };
 

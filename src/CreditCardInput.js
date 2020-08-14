@@ -116,10 +116,12 @@ export default class CreditCardInput extends Component {
     NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
       e => { throw e; },
       x => {
-        this.refs.Form.scrollTo({ x: x, y: 0, animated: true });
-        setTimeout(() => {
-          this.refs[field].focus();
-        }, 300);
+        if (this.refs.Form && this.refs.Form.scrollTo) {
+          this.refs.Form.scrollTo({ x: x, y: 0, animated: true });
+          if (this.refs[field]) {
+            this.refs[field].focus();
+          }
+        }
       });
   }
 
